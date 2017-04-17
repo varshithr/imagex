@@ -1,0 +1,106 @@
+version: '2'
+services:
+  pypiserver:
+    image: jcsaaddupuy/pypiserver
+    #command: pypi-server -P '' -u ''
+    volumes: 
+      - "./wheelhouse:/data/packages"
+    ports:
+      - "0.0.0.0:9009:8080"
+  thumbor:
+    image: apsl/thumbor
+    env_file: .travis.env
+    volumes:
+      - ./data:/data
+    links:
+      - redis:redis
+    ports:
+      - "127.0.0.1:8091:8000" # thumbor port
+    networks:
+      - app
+  thumbormultiprocess:
+    image: apsl/thumbor-multiprocess
+    env_file: .travis.env
+    volumes:
+      - ./data:/data
+    links:
+      - redis:redis
+    ports:
+      - "127.0.0.1:8092:8000" # thumbor port
+    networks:
+      - app
+  thumborsimdss4:
+    image: apsl/thumbor:latest-simd-sse4
+    env_file: .travis.env
+    volumes:
+      - ./data:/data
+    links:
+      - redis:redis
+    ports:
+      - "127.0.0.1:8093:8000" # thumbor port
+    networks:
+      - app
+  thumbormultiprocesssimdss4:
+    image: apsl/thumbor-multiprocess:latest-simd-sse4
+    env_file: .travis.env
+    volumes:
+      - ./data:/data
+    links:
+      - redis:redis
+    ports:
+      - "127.0.0.1:8094:8000" # thumbor port
+    networks:
+      - app
+  thumborsimdavx2:
+    image: apsl/thumbor:latest-simd-avx2
+    env_file: .travis.env
+    volumes:
+      - ./data:/data
+    links:
+      - redis:redis
+    ports:
+      - "127.0.0.1:8095:8000" # thumbor port
+    networks:
+      - app
+  thumbormultiprocesssimdavx2:
+    image: apsl/thumbor-multiprocess:latest-simd-avx2
+    env_file: .travis.env
+    volumes:
+      - ./data:/data
+    links:
+      - redis:redis
+    ports:
+      - "127.0.0.1:8096:8000" # thumbor port
+    networks:
+      - app
+  nginx:
+    image: apsl/thumbor-nginx
+    links:
+      - thumbor:thumbor
+    volumes_from:
+      - thumbor:ro
+    ports:
+      - "127.0.0.1:8097:80" # thumbor port
+    hostname: nginx
+    networks:
+      - app
+  remotecv:
+    image: apsl/remotecv
+    links:
+      - redis:redis
+    environment:
+      - REMOTECV_REDIS_HOST=redis
+      - REMOTECV_REDIS_PORT=6379
+      - REMOTECV_REDIS_DATABASE=0
+    networks:
+      - app
+  redis:
+    image: redis:latest
+    networks:
+      - app
+volumes:
+  data:
+    driver: local
+networks:
+  app:
+    driver: bridge
