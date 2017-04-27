@@ -196,7 +196,8 @@ URL_SIGNER = '{{ URL_SIGNER | default('libthumbor.url_signers.base64_hmac_sha1')
 
 ## The security key thumbor uses to sign image URLs
 ## Defaults to: MY_SECURE_KEY
-SECURITY_KEY = '{{ SECURITY_KEY | default('MY_SECURE_KEY') }}'
+SECURITY_KEY = 'BOTEZu^p_EH+(G5hf5in'
+#SECURITY_KEY = '{{ SECURITY_KEY | default('MY_SECURE_KEY') }}'
 
 ## Indicates if the /unsafe URL should be available
 ## Defaults to: True
@@ -339,7 +340,7 @@ STORAGE_EXPIRATION_SECONDS = {{ STORAGE_EXPIRATION_SECONDS | default(2592000) }}
 ## file storage. This allows the key to be changed and old images to still be
 ## properly found
 ## Defaults to: False
-STORES_CRYPTO_KEY_FOR_EACH_IMAGE = {{ STORES_CRYPTO_KEY_FOR_EACH_IMAGE | default(False) }}
+STORES_CRYPTO_KEY_FOR_EACH_IMAGE = {{ STORES_CRYPTO_KEY_FOR_EACH_IMAGE | default(True) }}
 
 ## The root path where the File Storage will try to find images
 ## Defaults to: /tmp/thumbor/storage
