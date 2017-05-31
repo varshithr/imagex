@@ -673,3 +673,59 @@ TC_AWS_ALLOWED_BUCKETS = {{ TC_AWS_ALLOWED_BUCKETS | default(False) }} # List of
 TC_AWS_STORE_METADATA = {{ TC_AWS_STORE_METADATA | default(False) }} # Store result with metadata (for instance content-type)
 ################################################################################
 
+# Community extensions
+COMMUNITY_EXTENSIONS = [
+'tc_shortener'
+]
+SHORTENER_STORAGE   = 'tc_shortener.storages.redis_storage'         # Shortener storage class name
+SHORTENER_GENERATOR = 'tc_shortener.generators.sha256_generator'    # Shortener generator class name
+
+# HBase Config
+HBASE_STORAGE_SERVER_HOST = "localhost"
+HBASE_STORAGE_SERVER_PORT = 9000
+HBASE_STORAGE_TABLE = "storage-table"
+HBASE_STORAGE_FAMILY = "storage-family"
+#LOADER = "thumbor_hbase.loader"
+#STORAGE = "thumbor_hbase.storage"
+
+# MongoDB Config
+#LOADER = 'thumbor_mongodb.loader'
+MONGO_LOADER_CNX_STRING = 'mongodb://mongodbserver01,mongodbserver02:27017'
+MONGO_LOADER_SERVER_DB = 'thumbor'
+MONGO_LOADER_SERVER_COLLECTION = 'images'
+MONGO_LOADER_DOC_FIELD = 'content'
+
+# Use riak for storage.
+#STORAGE = 'thumbor_riak.storage'
+
+# Put the url for your riak install here
+RIAK_STORAGE_BASEURL = "http://my-riak-install-base-url"
+
+# Use rackspace for result storage.
+# For more info on result storage: https://github.com/thumbor/thumbor/wiki/Result-storage
+#RESULT_STORAGE = 'thumbor_rackspace.result_storages.cloudfile_storage'
+
+# Pyrax Rackspace configuration file location
+RACKSPACE_PYRAX_CFG = /var/thumbor/.pyrax.cfg
+
+# Result Storage options
+RACKSPACE_RESULT_STORAGE_EXPIRES = True # Set TTL on cloudfile objects
+RACKSPACE_RESULT_STORAGES_CONTAINER = "cloudfile-container-name"
+RACKSPACE_RESULT_STORAGES_CONTAINER_ROOT = "/"
+
+################################# File Storage #################################
+#STORAGE = 'thumbor_ceph.storages.ceph_storage'
+CEPH_STORAGE_POOL = 'thumbor'
+
+#################################### Upload ####################################
+UPLOAD_PHOTO_STORAGE = 'thumbor_ceph.storages.ceph_storage'
+
+################################ Result Storage ################################
+#RESULT_STORAGE = 'thumbor_ceph.result_storages.ceph_storage'
+CEPH_RESULT_STORAGE_POOL = 'thumbor'
+
+################################# Extensibility #################################
+#METRICS = 'tc_prometheus.metrics.prometheus_metrics'
+
+# optional with defaults
+PROMETHEUS_SCRAPE_PORT = 8000 # Port the prometheus client should listen on
