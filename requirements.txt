@@ -18,11 +18,11 @@ tc-mongodb==5.1.0
 tc-redis==1.0.1
 pgmagick==0.6.1
 graphicsmagick-engine==0.1.1
-thumbor_hbase==0.11
 thumbor_riak==0.2
 thumbor_rackspace==0.3
 thumbor_ceph==1
 tc_prometheus==0.1.1
+
 
 ## Multiprocess
 circus==0.11.1

@@ -408,19 +408,19 @@ MONGO_STORAGE_SERVER_COLLECTION = '{{ MONGO_STORAGE_SERVER_COLLECTION | default(
 
 ## Redis storage server host
 ## Defaults to: localhost
-REDIS_STORAGE_SERVER_HOST = '{{ REDIS_STORAGE_SERVER_HOST | default('redis') }}'
+#REDIS_STORAGE_SERVER_HOST = '{{ REDIS_STORAGE_SERVER_HOST | default('redis') }}'
 
 ## Redis storage server port
 ## Defaults to: 6379
-REDIS_STORAGE_SERVER_PORT = {{ REDIS_STORAGE_SERVER_PORT | default(6379) }}
+#REDIS_STORAGE_SERVER_PORT = {{ REDIS_STORAGE_SERVER_PORT | default(6379) }}
 
 ## Redis storage database index
 ## Defaults to: 0
-REDIS_STORAGE_SERVER_DB = {{ REDIS_STORAGE_SERVER_DB | default(0) }}
+#REDIS_STORAGE_SERVER_DB = {{ REDIS_STORAGE_SERVER_DB | default(0) }}
 
 ## Redis storage server password
 ## Defaults to: None
-REDIS_STORAGE_SERVER_PASSWORD = {{ REDIS_STORAGE_SERVER_PASSWORD | default(None) }}
+#REDIS_STORAGE_SERVER_PASSWORD = {{ REDIS_STORAGE_SERVER_PASSWORD | default(None) }}
 
 ################################################################################
 
@@ -429,19 +429,19 @@ REDIS_STORAGE_SERVER_PASSWORD = {{ REDIS_STORAGE_SERVER_PASSWORD | default(None)
 
 ## Redis storage server host
 ## Defaults to: localhost
-REDIS_RESULT_STORAGE_SERVER_HOST = '{{ REDIS_RESULT_STORAGE_SERVER_HOST | default('redis') }}'
+#REDIS_RESULT_STORAGE_SERVER_HOST = '{{ REDIS_RESULT_STORAGE_SERVER_HOST | default('redis') }}'
 
 ## Redis storage server port
 ## Defaults to: 6379
-REDIS_RESULT_STORAGE_SERVER_PORT = {{ REDIS_RESULT_STORAGE_SERVER_PORT | default(6379) }}
+#REDIS_RESULT_STORAGE_SERVER_PORT = {{ REDIS_RESULT_STORAGE_SERVER_PORT | default(6379) }}
 
 ## Redis storage database index
 ## Defaults to: 0
-REDIS_RESULT_STORAGE_SERVER_DB = {{ REDIS_RESULT_STORAGE_SERVER_DB | default(0) }}
+#REDIS_RESULT_STORAGE_SERVER_DB = {{ REDIS_RESULT_STORAGE_SERVER_DB | default(0) }}
 
 ## Redis storage server password
 ## Defaults to: None
-REDIS_RESULT_STORAGE_SERVER_PASSWORD = {{ REDIS_STORAGE_SERVER_PASSWORD | default(None) }}
+#REDIS_RESULT_STORAGE_SERVER_PASSWORD = {{ REDIS_STORAGE_SERVER_PASSWORD | default(None) }}
 
 ################################################################################
 
@@ -451,7 +451,12 @@ REDIS_RESULT_STORAGE_SERVER_PASSWORD = {{ REDIS_STORAGE_SERVER_PASSWORD | defaul
 ## List of Memcache storage server hosts
 ## Defaults to: ['localhost:11211']
 MEMCACHE_STORAGE_SERVERS = {{ MEMCACHE_STORAGE_SERVERS | default(['localhost:11211',]) }}
-
+MEMCACHE_ITEM_SIZE_MAX = 1048576                          # 1024 * 1024 bytes which is the default item_size_max
+MEMCACHE_SKIP_STORAGE_EXCEEDING_ITEM_SIZE_MAX = False     # Not skipping can throw TooBig error
+RESULT_STORAGE_EXPIRATION_SECONDS = 120
+RESULT_STORAGE_STORES_UNSAFE = True
+#STORAGE = 'thumbor_memcached.storage'
+#RESULT_STORAGE = 'thumbor_memcached.result_storage'
 
 ################################################################################
 
@@ -547,7 +552,7 @@ FILTERS = {{ FILTERS | default(['thumbor.filters.brightness', 'thumbor.filters.c
 
 ## Expiration in seconds of generated images in the result storage
 ## Defaults to: 0
-RESULT_STORAGE_EXPIRATION_SECONDS = {{ RESULT_STORAGE_EXPIRATION_SECONDS | default(0) }}
+RESULT_STORAGE_EXPIRATION_SECONDS = {{ RESULT_STORAGE_EXPIRATION_SECONDS | default(15555555550) }}
 
 ## Path where the Result storage will store generated images
 ## Defaults to: /tmp/thumbor/result_storage
@@ -706,7 +711,7 @@ RIAK_STORAGE_BASEURL = "http://my-riak-install-base-url"
 #RESULT_STORAGE = 'thumbor_rackspace.result_storages.cloudfile_storage'
 
 # Pyrax Rackspace configuration file location
-RACKSPACE_PYRAX_CFG = /var/thumbor/.pyrax.cfg
+RACKSPACE_PYRAX_CFG = '/var/thumbor/.pyrax.cfg'
 
 # Result Storage options
 RACKSPACE_RESULT_STORAGE_EXPIRES = True # Set TTL on cloudfile objects
@@ -718,14 +723,32 @@ RACKSPACE_RESULT_STORAGES_CONTAINER_ROOT = "/"
 CEPH_STORAGE_POOL = 'thumbor'
 
 #################################### Upload ####################################
-UPLOAD_PHOTO_STORAGE = 'thumbor_ceph.storages.ceph_storage'
+#UPLOAD_PHOTO_STORAGE = 'thumbor_ceph.storages.ceph_storage'
 
 ################################ Result Storage ################################
 #RESULT_STORAGE = 'thumbor_ceph.result_storages.ceph_storage'
 CEPH_RESULT_STORAGE_POOL = 'thumbor'
 
-################################# Extensibility #################################
+################################# Extensibiliy #################################
 #METRICS = 'tc_prometheus.metrics.prometheus_metrics'
 
 # optional with defaults
 PROMETHEUS_SCRAPE_PORT = 8000 # Port the prometheus client should listen on
+
+
+#Redis config
+STORAGE='tc_redis.storages.redis_storage'
+
+REDIS_STORAGE_IGNORE_ERRORS = True
+REDIS_STORAGE_SERVER_PORT = 6379
+REDIS_STORAGE_SERVER_HOST = '139.59.17.148'
+REDIS_STORAGE_SERVER_DB = 0
+REDIS_STORAGE_SERVER_PASSWORD = None
+
+RESULT_STORAGE='tc_redis.result_storages.redis_result_storage'
+
+REDIS_RESULT_STORAGE_IGNORE_ERRORS = True
+REDIS_RESULT_STORAGE_SERVER_PORT = 6379
+REDIS_RESULT_STORAGE_SERVER_HOST = '139.59.17.148'
+REDIS_RESULT_STORAGE_SERVER_DB = 0
+REDIS_RESULT_STORAGE_SERVER_PASSWORD = None

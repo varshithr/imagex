@@ -1,5 +1,6 @@
 FROM python:2
-
+RUN pip install thumbor
+RUN pip install thumbor_hbase
 MAINTAINER Edu Herraiz <ghark@gmail.com>
 
 VOLUME /logs
@@ -24,7 +25,7 @@ RUN pip install --no-cache-dir -r /usr/src/app/requirements.txt
 
 COPY thumbor/conf/thumbor.conf.tpl /usr/src/app/thumbor.conf.tpl
 
-RUN \ 
+RUN \
     ln /usr/lib/python2.7/dist-packages/cv2.x86_64-linux-gnu.so /usr/local/lib/python2.7/cv2.so && \
     ln /usr/lib/python2.7/dist-packages/cv.py /usr/local/lib/python2.7/cv.py
 
@@ -33,4 +34,3 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["thumbor"]
 
 EXPOSE 80
-
