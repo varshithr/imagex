@@ -162,7 +162,7 @@ LOADER = '{{ LOADER | default('thumbor.loaders.http_loader') }}'
 ## The file storage thumbor should use to store original images. This must be the
 ## full name of a python module (python must be able to import it)
 ## Defaults to: thumbor.storages.file_storage
-STORAGE = '{{ STORAGE | default('thumbor.storages.file_storage') }}'
+STORAGE = '{{ STORAGE | default('tc_redis.storages.redis_storage') }}'
 STORAGE_BUCKET = '{{ STORAGE_BUCKET | default('') }}'
 RESULT_STORAGE_BUCKET = '{{ RESULT_STORAGE_BUCKET | default('') }}'
 
@@ -171,7 +171,7 @@ RESULT_STORAGE_BUCKET = '{{ RESULT_STORAGE_BUCKET | default('') }}'
 ## the full name of a python module (python must be able to import it)
 ## Defaults to: None
 
-RESULT_STORAGE = '{{ RESULT_STORAGE | default('thumbor.result_storages.file_storage') }}'
+RESULT_STORAGE = '{{ RESULT_STORAGE | default('tc_redis.result_storages.redis_result_storage') }}'
 
 
 ## The imaging engine thumbor should use to perform image operations. This must
@@ -380,47 +380,23 @@ UPLOAD_PUT_ALLOWED = {{ UPLOAD_PUT_ALLOWED | default(False) }}
 ## Defaults to: image
 UPLOAD_DEFAULT_FILENAME = '{{ UPLOAD_DEFAULT_FILENAME | default('image') }}'
 
-################################################################################
-
-
-############################### MongoDB Storage ################################
-
-## MongoDB storage server host
-## Defaults to: localhost
-MONGO_STORAGE_SERVER_HOST = '{{ MONGO_STORAGE_SERVER_HOST | default('mongo') }}'
-
-## MongoDB storage server port
-## Defaults to: 27017
-MONGO_STORAGE_SERVER_PORT = {{ MONGO_STORAGE_SERVER_PORT | default(27017) }}
-
-## MongoDB storage server database name
-## Defaults to: thumbor
-MONGO_STORAGE_SERVER_DB = '{{ MONGO_STORAGE_SERVER_DB | default('thumbor') }}'
-
-## MongoDB storage image collection
-## Defaults to: images
-MONGO_STORAGE_SERVER_COLLECTION = '{{ MONGO_STORAGE_SERVER_COLLECTION | default('images') }}'
-
-################################################################################
-
-
 ################################ Redis Storage #################################
 
 ## Redis storage server host
 ## Defaults to: localhost
-#REDIS_STORAGE_SERVER_HOST = '{{ REDIS_STORAGE_SERVER_HOST | default('redis') }}'
+REDIS_STORAGE_SERVER_HOST = '{{ REDIS_STORAGE_SERVER_HOST | default('redis') }}'
 
 ## Redis storage server port
 ## Defaults to: 6379
-#REDIS_STORAGE_SERVER_PORT = {{ REDIS_STORAGE_SERVER_PORT | default(6379) }}
+REDIS_STORAGE_SERVER_PORT = {{ REDIS_STORAGE_SERVER_PORT | default(6379) }}
 
 ## Redis storage database index
 ## Defaults to: 0
-#REDIS_STORAGE_SERVER_DB = {{ REDIS_STORAGE_SERVER_DB | default(0) }}
+REDIS_STORAGE_SERVER_DB = {{ REDIS_STORAGE_SERVER_DB | default(0) }}
 
 ## Redis storage server password
 ## Defaults to: None
-#REDIS_STORAGE_SERVER_PASSWORD = {{ REDIS_STORAGE_SERVER_PASSWORD | default(None) }}
+REDIS_STORAGE_SERVER_PASSWORD = {{ REDIS_STORAGE_SERVER_PASSWORD | default(None) }}
 
 ################################################################################
 
@@ -429,36 +405,19 @@ MONGO_STORAGE_SERVER_COLLECTION = '{{ MONGO_STORAGE_SERVER_COLLECTION | default(
 
 ## Redis storage server host
 ## Defaults to: localhost
-#REDIS_RESULT_STORAGE_SERVER_HOST = '{{ REDIS_RESULT_STORAGE_SERVER_HOST | default('redis') }}'
+REDIS_RESULT_STORAGE_SERVER_HOST = '{{ REDIS_RESULT_STORAGE_SERVER_HOST | default('redis') }}'
 
 ## Redis storage server port
 ## Defaults to: 6379
-#REDIS_RESULT_STORAGE_SERVER_PORT = {{ REDIS_RESULT_STORAGE_SERVER_PORT | default(6379) }}
+REDIS_RESULT_STORAGE_SERVER_PORT = {{ REDIS_RESULT_STORAGE_SERVER_PORT | default(6379) }}
 
 ## Redis storage database index
 ## Defaults to: 0
-#REDIS_RESULT_STORAGE_SERVER_DB = {{ REDIS_RESULT_STORAGE_SERVER_DB | default(0) }}
+REDIS_RESULT_STORAGE_SERVER_DB = {{ REDIS_RESULT_STORAGE_SERVER_DB | default(0) }}
 
 ## Redis storage server password
 ## Defaults to: None
-#REDIS_RESULT_STORAGE_SERVER_PASSWORD = {{ REDIS_STORAGE_SERVER_PASSWORD | default(None) }}
-
-################################################################################
-
-
-############################### Memcache Storage ###############################
-
-## List of Memcache storage server hosts
-## Defaults to: ['localhost:11211']
-MEMCACHE_STORAGE_SERVERS = {{ MEMCACHE_STORAGE_SERVERS | default(['localhost:11211',]) }}
-MEMCACHE_ITEM_SIZE_MAX = 1048576                          # 1024 * 1024 bytes which is the default item_size_max
-MEMCACHE_SKIP_STORAGE_EXCEEDING_ITEM_SIZE_MAX = False     # Not skipping can throw TooBig error
-RESULT_STORAGE_EXPIRATION_SECONDS = 120
-RESULT_STORAGE_STORES_UNSAFE = True
-#STORAGE = 'thumbor_memcached.storage'
-#RESULT_STORAGE = 'thumbor_memcached.result_storage'
-
-################################################################################
+REDIS_RESULT_STORAGE_SERVER_PASSWORD = {{ REDIS_STORAGE_SERVER_PASSWORD | default(None) }}
 
 
 ################################ Mixed Storage #################################
@@ -685,70 +644,8 @@ COMMUNITY_EXTENSIONS = [
 SHORTENER_STORAGE   = 'tc_shortener.storages.redis_storage'         # Shortener storage class name
 SHORTENER_GENERATOR = 'tc_shortener.generators.sha256_generator'    # Shortener generator class name
 
-# HBase Config
-HBASE_STORAGE_SERVER_HOST = "localhost"
-HBASE_STORAGE_SERVER_PORT = 9000
-HBASE_STORAGE_TABLE = "storage-table"
-HBASE_STORAGE_FAMILY = "storage-family"
-#LOADER = "thumbor_hbase.loader"
-#STORAGE = "thumbor_hbase.storage"
-
-# MongoDB Config
-#LOADER = 'thumbor_mongodb.loader'
-MONGO_LOADER_CNX_STRING = 'mongodb://mongodbserver01,mongodbserver02:27017'
-MONGO_LOADER_SERVER_DB = 'thumbor'
-MONGO_LOADER_SERVER_COLLECTION = 'images'
-MONGO_LOADER_DOC_FIELD = 'content'
-
-# Use riak for storage.
-#STORAGE = 'thumbor_riak.storage'
-
-# Put the url for your riak install here
-RIAK_STORAGE_BASEURL = "http://my-riak-install-base-url"
-
-# Use rackspace for result storage.
-# For more info on result storage: https://github.com/thumbor/thumbor/wiki/Result-storage
-#RESULT_STORAGE = 'thumbor_rackspace.result_storages.cloudfile_storage'
-
-# Pyrax Rackspace configuration file location
-RACKSPACE_PYRAX_CFG = '/var/thumbor/.pyrax.cfg'
-
-# Result Storage options
-RACKSPACE_RESULT_STORAGE_EXPIRES = True # Set TTL on cloudfile objects
-RACKSPACE_RESULT_STORAGES_CONTAINER = "cloudfile-container-name"
-RACKSPACE_RESULT_STORAGES_CONTAINER_ROOT = "/"
-
-################################# File Storage #################################
-#STORAGE = 'thumbor_ceph.storages.ceph_storage'
-CEPH_STORAGE_POOL = 'thumbor'
-
-#################################### Upload ####################################
-#UPLOAD_PHOTO_STORAGE = 'thumbor_ceph.storages.ceph_storage'
-
-################################ Result Storage ################################
-#RESULT_STORAGE = 'thumbor_ceph.result_storages.ceph_storage'
-CEPH_RESULT_STORAGE_POOL = 'thumbor'
-
 ################################# Extensibiliy #################################
-#METRICS = 'tc_prometheus.metrics.prometheus_metrics'
+METRICS = 'tc_prometheus.metrics.prometheus_metrics'
 
 # optional with defaults
 PROMETHEUS_SCRAPE_PORT = 8000 # Port the prometheus client should listen on
-
-
-#Redis config
-STORAGE='tc_redis.storages.redis_storage'
-
-REDIS_STORAGE_IGNORE_ERRORS = True
-REDIS_STORAGE_SERVER_PORT = 6379
-REDIS_STORAGE_SERVER_HOST = "139.59.17.148"
-REDIS_STORAGE_SERVER_DB = 0
-REDIS_STORAGE_SERVER_PASSWORD = "scriptbees1$"
-
-RESULT_STORAGE='tc_redis.result_storages.redis_result_storage'
-
-REDIS_RESULT_STORAGE_IGNORE_ERRORS = True
-REDIS_RESULT_STORAGE_SERVER_PORT = 6379
-REDIS_RESULT_STORAGE_SERVER_HOST = "139.59.17.148"
-REDIS_RESULT_STORAGE_SERVER_DB = 0
-REDIS_RESULT_STORAGE_SERVER_PASSWORD = "scriptbees1$"
