@@ -396,7 +396,7 @@ REDIS_STORAGE_SERVER_DB = {{ REDIS_STORAGE_SERVER_DB | default(0) }}
 
 ## Redis storage server password
 ## Defaults to: None
-REDIS_STORAGE_SERVER_PASSWORD = {{ REDIS_STORAGE_SERVER_PASSWORD | default(None) }}
+REDIS_STORAGE_SERVER_PASSWORD = '{{ REDIS_STORAGE_SERVER_PASSWORD | default(None) }}'
 
 ################################################################################
 
@@ -417,7 +417,7 @@ REDIS_RESULT_STORAGE_SERVER_DB = {{ REDIS_RESULT_STORAGE_SERVER_DB | default(0) 
 
 ## Redis storage server password
 ## Defaults to: None
-REDIS_RESULT_STORAGE_SERVER_PASSWORD = {{ REDIS_STORAGE_SERVER_PASSWORD | default(None) }}
+REDIS_RESULT_STORAGE_SERVER_PASSWORD = '{{ REDIS_STORAGE_SERVER_PASSWORD | default(None) }}'
 
 
 ################################ Mixed Storage #################################
@@ -540,7 +540,7 @@ REDIS_QUEUE_SERVER_DB = {{ REDIS_QUEUE_SERVER_DB | default(0) }}
 
 ## Server password for the queued redis detector
 ## Defaults to: None
-REDIS_QUEUE_SERVER_PASSWORD = {{ REDIS_QUEUE_SERVER_PASSWORD | default(None) }}
+REDIS_QUEUE_SERVER_PASSWORD = '{{ REDIS_QUEUE_SERVER_PASSWORD | default(None) }}'
 
 ################################################################################
 
