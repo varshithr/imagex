@@ -382,9 +382,11 @@ UPLOAD_DEFAULT_FILENAME = '{{ UPLOAD_DEFAULT_FILENAME | default('image') }}'
 
 ################################ Redis Storage #################################
 
+REDIS_STORAGE_IGNORE_ERRORS = True
+
 ## Redis storage server host
 ## Defaults to: localhost
-REDIS_STORAGE_SERVER_HOST = '{{ REDIS_STORAGE_SERVER_HOST | default('redis') }}'
+REDIS_STORAGE_SERVER_HOST = '{{ REDIS_STORAGE_SERVER_HOST | default('localhost') }}'
 
 ## Redis storage server port
 ## Defaults to: 6379
@@ -396,16 +398,18 @@ REDIS_STORAGE_SERVER_DB = {{ REDIS_STORAGE_SERVER_DB | default(0) }}
 
 ## Redis storage server password
 ## Defaults to: None
-REDIS_STORAGE_SERVER_PASSWORD = '{{ REDIS_STORAGE_SERVER_PASSWORD | default(None) }}'
+REDIS_STORAGE_SERVER_PASSWORD = '{{ REDIS_STORAGE_SERVER_PASSWORD | default(REDIS_PASS) }}'
 
 ################################################################################
 
 
 ################################ Redis Result Storage #################################
 
+REDIS_RESULT_STORAGE_IGNORE_ERRORS = True
+
 ## Redis storage server host
 ## Defaults to: localhost
-REDIS_RESULT_STORAGE_SERVER_HOST = '{{ REDIS_RESULT_STORAGE_SERVER_HOST | default('redis') }}'
+REDIS_RESULT_STORAGE_SERVER_HOST = '{{ REDIS_RESULT_STORAGE_SERVER_HOST | default('localhost') }}'
 
 ## Redis storage server port
 ## Defaults to: 6379
@@ -413,11 +417,11 @@ REDIS_RESULT_STORAGE_SERVER_PORT = {{ REDIS_RESULT_STORAGE_SERVER_PORT | default
 
 ## Redis storage database index
 ## Defaults to: 0
-REDIS_RESULT_STORAGE_SERVER_DB = {{ REDIS_RESULT_STORAGE_SERVER_DB | default(0) }}
+REDIS_RESULT_STORAGE_SERVER_DB = {{ REDIS_RESULT_STORAGE_SERVER_DB | default(1) }}
 
 ## Redis storage server password
 ## Defaults to: None
-REDIS_RESULT_STORAGE_SERVER_PASSWORD = '{{ REDIS_STORAGE_SERVER_PASSWORD | default(None) }}'
+REDIS_RESULT_STORAGE_SERVER_PASSWORD = '{{ REDIS_STORAGE_SERVER_PASSWORD | default(REDIS_PASS) }}'
 
 
 ################################ Mixed Storage #################################
@@ -528,7 +532,7 @@ RESULT_STORAGE_STORES_UNSAFE = {{ RESULT_STORAGE_STORES_UNSAFE | default(False) 
 
 ## Server host for the queued redis detector
 ## Defaults to: localhost
-REDIS_QUEUE_SERVER_HOST = '{{ REDIS_QUEUE_SERVER_HOST | default('redis') }}'
+REDIS_QUEUE_SERVER_HOST = '{{ REDIS_QUEUE_SERVER_HOST | default('localhost') }}'
 
 ## Server port for the queued redis detector
 ## Defaults to: 6379
@@ -536,11 +540,11 @@ REDIS_QUEUE_SERVER_PORT = {{ REDIS_QUEUE_SERVER_PORT | default(6379) }}
 
 ## Server database index for the queued redis detector
 ## Defaults to: 0
-REDIS_QUEUE_SERVER_DB = {{ REDIS_QUEUE_SERVER_DB | default(0) }}
+REDIS_QUEUE_SERVER_DB = {{ REDIS_QUEUE_SERVER_DB | default(2) }}
 
 ## Server password for the queued redis detector
 ## Defaults to: None
-REDIS_QUEUE_SERVER_PASSWORD = '{{ REDIS_QUEUE_SERVER_PASSWORD | default(None) }}'
+REDIS_QUEUE_SERVER_PASSWORD = '{{ REDIS_QUEUE_SERVER_PASSWORD | default(REDIS_PASS) }}'
 
 ################################################################################
 
@@ -645,7 +649,7 @@ SHORTENER_STORAGE   = 'tc_shortener.storages.redis_storage'         # Shortener 
 SHORTENER_GENERATOR = 'tc_shortener.generators.sha256_generator'    # Shortener generator class name
 
 ################################# Extensibiliy #################################
-METRICS = 'tc_prometheus.metrics.prometheus_metrics'
+#METRICS = 'tc_prometheus.metrics.prometheus_metrics'
 
 # optional with defaults
-PROMETHEUS_SCRAPE_PORT = 8000 # Port the prometheus client should listen on
+#PROMETHEUS_SCRAPE_PORT = 8000 # Port the prometheus client should listen on

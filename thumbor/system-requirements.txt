@@ -10,4 +10,4 @@ libgraphicsmagick3
 libboost-python-dev
 gifsicle=1.88*
 ffmpeg
-python-urllib3
+libgraphicsmagick++1-dev

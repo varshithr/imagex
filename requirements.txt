@@ -21,7 +21,6 @@ graphicsmagick-engine==0.1.1
 thumbor_riak==0.2
 thumbor_rackspace==0.3
 thumbor_ceph==1
-tc_prometheus==0.1.1
 
 
 ## Multiprocess
